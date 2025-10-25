@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EletroTech | Orçamento Imediato - Elétrica e TI</title>
+    <meta name="description"
+        content="Eletricista e Técnico de TI com atendimento rápido. Instalação, reparos elétricos, redes e suporte técnico. Peça seu orçamento via WhatsApp agora!">
+
+    <link rel="stylesheet" href="landing_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1 class="visually-hidden">EletroTech - Soluções Elétricas e de TI</h1>
+
+            <h2>Eletricista e Técnico de TI à disposição!</h2>
+            <p class="subtitle">Atendimento Rápido e Orçamento Imediato via WhatsApp.</p>
+
+            <a href="javascript:void(0)" onclick="iniciarWhatsappDireto()" class="cta-hero-button">
+                <i class="fab fa-whatsapp"></i> Chame no WhatsApp Agora!
+            </a>
+
+            <p class="phone-info">Ou ligue: (55) 99695-4137</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="benefits-section">
+            <h3>Por que a EletroTech é a escolha ideal?</h3>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Segurança Garantida</h4>
+                    <p>Profissionais certificados e materiais dentro das normas técnicas (ABNT).</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-clock"></i>
+                    <h4>Atendimento Rápido</h4>
+                    <p>Prioridade em urgências. Receba seu orçamento em poucos minutos.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-star"></i>
+                    <h4>Soluções Completas</h4>
+                    <p>Cuidamos da sua energia e da sua tecnologia em um só lugar.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="form-contato" class="form-section">
+            <h3>Prefere preencher os dados para ser chamado?</h3>
+            <form onsubmit="enviarParaWhatsapp(); return false;">
+
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required placeholder="Seu Nome">
+
+                <label for="telefone_form">Telefone (DDD + Número):</label>
+                <input type="tel" id="telefone_form" name="telefone_form" required placeholder="(55) 996954137">
+
+                <label for="area_servico">Área do Serviço:</label>
+                <select id="area_servico" name="area_servico" required>
+                    <option value="">-- Selecione a Área --</option>
+                    <option value="Eletrica">Serviços Elétricos (Instalação, Reparos)</option>
+                    <option value="TI">Serviços de Informática/Redes (Suporte, Internet)</option>
+                </select>
+
+                <label for="mensagem">Descreva o que você precisa:</label>
+                <textarea id="mensagem" name="mensagem" rows="4" required
+                    placeholder="Ex: Curto circuito na cozinha OU Wi-Fi não funciona no 2º andar."></textarea>
+
+                <button type="submit" class="cta-form-button">
+                    Enviar e Iniciar Conversa no WhatsApp
+                </button>
+            </form>
+        </section>
+
+        <section class="final-cta">
+            <h3>Ainda mais rápido: Aponte a câmera!</h3>
+            <p>Escaneie o QR Code para ir direto para o nosso contato.</p>
+            <img src="imag/qr.png" alt="QR Code para WhatsApp" class="qrcode-final">
+        </section>
+
+    </main>
+
+    <footer>
+        <p>EletroTech - Soluções Imediatas. CNPJ/CPF e Endereço: Rua Radialista Osvaldo Nobre - Prado - SM</p>
+    </footer>
+
+    <a href="javascript:void(0)" onclick="iniciarWhatsappDireto()" class="whatsapp-float" title="Fale Imediatamente!">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const NUMERO_TELEFONE = '55996954137';
+
+        // Função para o botão flutuante e o CTA principal (sem dados do formulário)
+        function iniciarWhatsappDireto() {
+            var mensagemPadrao = "Olá, preciso de um orçamento urgente para serviços elétricos/tecnológicos. Por favor, me ajude!";
+            var url = `https://wa.me/${NUMERO_TELEFONE}?text=${encodeURIComponent(mensagemPadrao)}`;
+            window.open(url, '_blank').focus();
+        }
+
+        // Função para o formulário (com dados pré-preenchidos)
+        function enviarParaWhatsapp() {
+            var nome = document.getElementById('nome').value;
+            var telefone_form = document.getElementById('telefone_form').value;
+            var area_servico_texto = document.getElementById('area_servico').options[document.getElementById('area_servico').selectedIndex].text;
+            var mensagem = document.getElementById('mensagem').value;
+
+            // Validação mínima
+            if (nome === '' || telefone_form === '' || document.getElementById('area_servico').value === '' || mensagem === '') {
+                alert('Por favor, preencha todos os campos do formulário.');
+                return false;
+            }
+
+            // Constrói a mensagem
+            // No seu contato.html, dentro da função enviarParaWhatsapp()
+            var texto = `*SOLICITAÇÃO DE ORÇAMENTO (EletroTech)*%0A%0A` + // <--- Esta linha precisa estar completa!
+                `*Nome:* ${nome}%0A` +
+                `*Telefone:* ${telefone_form}%0A` +
+                `*Área:* ${area_servico_texto}%0A` +
+                `*Serviço Específico:* ${servico_detalhe}%0A%0A` + // Ou apenas a área, dependendo da sua versão.
+                `*Detalhes:* ${mensagem}`;
+
+            var url = `https://wa.me/${NUMERO_TELEFONE}?text=${encodeURIComponent(texto)}`;
+            window.open(url, '_blank').focus();
+
+            // Limpa o formulário
+            document.getElementById('form-contato').querySelector('form').reset();
+        }
+    </script>
+</body>
+
+</html>
